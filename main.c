@@ -1,36 +1,34 @@
-#include "spmat.h"
+#include "graph.h"
 #include "IO.h"
 #include <stdlib.h>
 #include <stdio.h>
-#include "clustering.h"
-#include <time.h> /*todo delete*/
+#include "division.h"
+#include <time.h>
 
+/*Find Community Structure of given input graph*/
 int main(int argc, char* argv[]) {
+
     int numOfClusters;
-    spmat *Amatrix;
+    mat *Amatrix;
     char *inputName, *outputName;
     GROUPS *clusteredGroupsHead;
-    clock_t start,end; /* @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ */
-    double timeall;
 
-    start = clock();
     if(argc!=3) {
-        printf("%s", "File Is Missing Error");
+        printf("%s", "Error: Argument is missing! \n");
         exit(1);
     }
 
     inputName = argv[1];
     outputName = argv[2];
-    ReadGraph(&Amatrix, inputName); /*Read Graph*/
-    clusteredGroupsHead = FindOptimalDivsion(Amatrix, &numOfClusters);                          /*Find division of graph*/
-    PrintDivision(clusteredGroupsHead, outputName, numOfClusters);
-    Amatrix -> Bg_rowSumsArray = NULL; /*Non sub matrix */
-    freeSparseMatrix(Amatrix);
 
-    end = clock();
-    timeall = ((double)(end-start) / CLOCKS_PER_SEC);
-    printf("\n Our RunTime: %f", timeall);
+    srand(time(NULL));
 
-    return 0;
+    ReadGraph(&Amatrix, inputName);
+    clusteredGroupsHead = FindOptimalDivision(Amatrix, &numOfClusters);       /*Find the optimal division of the graph*/
+    PrintDivision(clusteredGroupsHead, outputName, numOfClusters);            /*Creates Output file */
 
+    Amatrix -> Bg_rowSumsArray = NULL;                                        /*Amatrix is the original matrix and not a sub matrix */
+    FreeMatrix(Amatrix, 1);
+
+    return 0;                                                                 /*SUCCESS*/
 }

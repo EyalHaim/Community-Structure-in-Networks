@@ -1,0 +1,3 @@
+C:/Users/eyalh/CLionProjects/Community-Structure-in-Networks/cmake-build-debug/CMakeFiles/spProject.dir
+C:/Users/eyalh/CLionProjects/Community-Structure-in-Networks/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/eyalh/CLionProjects/Community-Structure-in-Networks/cmake-build-debug/CMakeFiles/rebuild_cache.dir
